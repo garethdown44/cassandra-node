@@ -5,7 +5,7 @@ const app = express();
 
 let contactPoints;
 if (process.env.CASSANDRA_LOCAL) {
-  contactPoints = ['192.168.99.100:30708'];
+  contactPoints = ['10.106.194.149:30189'];
 } else {
   contactPoints = ['cassandra.default.svc.cluster.local'];
 }
@@ -20,6 +20,8 @@ const run = async () => {
     await client.execute(`create table emp (empid UUID primary key, emp_first varchar, emp_last varchar, emp_dept varchar);`);
 
     console.log('database provisioned');
+    process.exit(0);
+    
   } catch (err) {
     console.log('Error occurred when creating DB ' + err);
   }
