@@ -5,7 +5,7 @@ const app = express();
 
 let contactPoints;
 if (process.env.CASSANDRA_LOCAL) {
-  contactPoints = ['10.106.194.149:30189'];
+  contactPoints = ['192.168.99.102:30189'];
 } else {
   contactPoints = ['cassandra.default.svc.cluster.local'];
 }
@@ -18,6 +18,7 @@ const run = async () => {
     await client.execute(`create keyspace dev with replication = {'class':'SimpleStrategy','replication_factor':1};`);
     await client.execute(`use dev;`);
     await client.execute(`create table emp (empid UUID primary key, emp_first varchar, emp_last varchar, emp_dept varchar);`);
+    await client.execute(`create table trn (id UUID primary key, data varchar);`);
 
     console.log('database provisioned');
     process.exit(0);
